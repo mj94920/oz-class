@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OZ Class — 실내 간판 (Emerald · Square)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f3ec;
+    --emerald: #00735e;
+    --brick: #f0b90b;
+    --stone: #5a5a5a;
+    --whisper: #c9c5b8;
+  }
+  html, body { background: var(--paper); }
+  body {
+    font-family: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 80px 56px; }
+
+  header.cover {
+    padding-bottom: 48px;
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 40px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .display {
+    font-family: 'DM Serif Display', 'Pretendard', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5.5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .lede {
+    font-size: 17px;
+    color: var(--stone);
+    max-width: 720px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: -0.01em;
+  }
+  section { margin-bottom: 96px; }
+
+  /* Square signage — hero */
+  .hero-sign {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  .sign-square {
+    position: relative;
+    width: min(560px, 100%);
+    aspect-ratio: 1 / 1;          /* 정사각형 */
+    background: var(--emerald);
+    border-radius: 0;             /* 직각 모서리 */
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.4) inset,
+      0 2px 4px rgba(0,0,0,0.08),
+      0 28px 64px -18px rgba(0,0,0,0.28),
+      0 10px 20px -10px rgba(0,0,0,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9%;
+  }
+  .sign-square::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.12) 100%);
+    pointer-events: none;
+  }
+  .screw {
+    position: absolute;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.22);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.2) inset;
+  }
+  .screw.tl { top: 16px; left: 16px; }
+  .screw.tr { top: 16px; right: 16px; }
+  .screw.bl { bottom: 16px; left: 16px; }
+  .screw.br { bottom: 16px; right: 16px; }
+
+  .sign-square svg { width: 100%; height: 100%; display: block; position: relative; z-index: 1; }
+
+  .caption {
+    text-align: center;
+    margin-top: 24px;
+    color: var(--stone);
+  }
+  .caption .label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .caption .name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .caption .hex {
+    font-family: 'Inter', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+  }
+
+  /* Wall context — three sizes */
+  .wall-ctx {
+    background: linear-gradient(180deg, #ede9dc 0%, #e0dcd0 100%);
+    padding: 64px 48px;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+  .wall-ctx .sign-square { box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 20px 40px -16px rgba(0,0,0,0.2); }
+  .wall-ctx .size-s { width: 160px; }
+  .wall-ctx .size-m { width: 240px; }
+  .wall-ctx .size-l { width: 320px; }
+  .size-tag {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  .notes {
+    background: white;
+    border: 1px solid var(--whisper);
+    padding: 28px 32px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--stone);
+  }
+  .notes strong { color: var(--ink); font-weight: 600; }
+  .notes ul { margin: 8px 0 0 18px; }
+  .notes ul li { margin-bottom: 6px; }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px 32px;
+    font-size: 13px;
+  }
+  .spec-grid dt {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    padding-top: 16px;
+    border-top: 1px solid var(--whisper);
+  }
+  .spec-grid dd {
+    color: var(--stone);
+    padding-top: 16px;
+    border-top: 1px solid var(--whisper);
+    line-height: 1.7;
+  }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ink);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 720px) {
+    .container { padding: 56px 24px; }
+    .spec-grid { grid-template-columns: 1fr; gap: 8px 0; }
+    .spec-grid dd { border-top: 0; padding-top: 0; padding-bottom: 16px; border-bottom: 1px solid var(--whisper); }
+    .spec-grid dt { padding-top: 16px; }
+    .wall-ctx { gap: 32px; }
+    .wall-ctx .size-l { width: 220px; }
+    .wall-ctx .size-m { width: 170px; }
+    .wall-ctx .size-s { width: 120px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="cover">
+    <div class="meta">
+      <div>Indoor Signage · Final v1.0</div>
+      <div>2026 · OZ Class</div>
+    </div>
+    <h1 class="display">실내 간판 — 에메랄드 정사각형</h1>
+    <p class="lede">
+      Stacked · Centered 로고, 정사각형(1:1) 프레임, 직각 모서리. 배경은 브랜드 에메랄드(#00735E),
+      텍스트(OZ CLASS · 오즈의 마법사)는 이전 시안 대비 약 1.2배 확대해 가독성을 강화했습니다.
+    </p>
+  </header>
+
+  <!-- HERO -->
+  <section>
+    <div class="section-label">01 / Final Design</div>
+    <h2 class="section-title">간판 확정 시안</h2>
+
+    <div class="hero-sign">
+      <div class="sign-square">
+        <span class="screw tl"></span>
+        <span class="screw tr"></span>
+        <span class="screw bl"></span>
+        <span class="screw br"></span>
+        <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- Logo icon (O + Z) -->
+          <circle cx="120" cy="128" r="55" fill="none" stroke="#f5f3ec" stroke-width="8"/>
+          <line x1="200" y1="76" x2="295" y2="76" stroke="#f5f3ec" stroke-width="8" stroke-linecap="square"/>
+          <line x1="295" y1="76" x2="200" y2="180" stroke="#f0b90b" stroke-width="13" stroke-linecap="square"/>
+          <line x1="200" y1="180" x2="295" y2="180" stroke="#f5f3ec" stroke-width="8" stroke-linecap="square"/>
+
+          <!-- Divider -->
+          <line x1="70" y1="232" x2="290" y2="232" stroke="#f5f3ec" stroke-width="1.2" opacity="0.75"/>
+
+          <!-- Wordmark (조금 더 크게) -->
+          <text x="180" y="278" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#f5f3ec" letter-spacing="2.2" text-anchor="middle">OZ CLASS</text>
+          <text x="180" y="312" font-family="Pretendard, sans-serif" font-size="17" font-weight="400" fill="#f5f3ec" fill-opacity="0.88" letter-spacing="3.5" text-anchor="middle">오즈의 마법사</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="caption">
+      <div class="label">Brand Emerald · Square</div>
+      <div class="name">OZ Class · Indoor Sign</div>
+      <div class="hex">BG #00735E · STROKE #F5F3EC · ACCENT #F0B90B</div>
+    </div>
+  </section>
+
+  <!-- WALL CONTEXT -->
+  <section>
+    <div class="section-label">02 / Scale Reference</div>
+    <h2 class="section-title">사이즈 비교</h2>
+    <div class="wall-ctx">
+      <div>
+        <div class="sign-square size-s">
+          <span class="screw tl"></span><span class="screw tr"></span>
+          <span class="screw bl"></span><span class="screw br"></span>
+          <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="128" r="55" fill="none" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="200" y1="76" x2="295" y2="76" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="295" y1="76" x2="200" y2="180" stroke="#f0b90b" stroke-width="13"/>
+            <line x1="200" y1="180" x2="295" y2="180" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="70" y1="232" x2="290" y2="232" stroke="#f5f3ec" stroke-width="1.2" opacity="0.75"/>
+            <text x="180" y="278" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#f5f3ec" letter-spacing="2.2" text-anchor="middle">OZ CLASS</text>
+            <text x="180" y="312" font-family="Pretendard, sans-serif" font-size="17" fill="#f5f3ec" fill-opacity="0.88" letter-spacing="3.5" text-anchor="middle">오즈의 마법사</text>
+          </svg>
+        </div>
+        <div class="size-tag">S · 300×300 mm</div>
+      </div>
+
+      <div>
+        <div class="sign-square size-m">
+          <span class="screw tl"></span><span class="screw tr"></span>
+          <span class="screw bl"></span><span class="screw br"></span>
+          <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="128" r="55" fill="none" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="200" y1="76" x2="295" y2="76" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="295" y1="76" x2="200" y2="180" stroke="#f0b90b" stroke-width="13"/>
+            <line x1="200" y1="180" x2="295" y2="180" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="70" y1="232" x2="290" y2="232" stroke="#f5f3ec" stroke-width="1.2" opacity="0.75"/>
+            <text x="180" y="278" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#f5f3ec" letter-spacing="2.2" text-anchor="middle">OZ CLASS</text>
+            <text x="180" y="312" font-family="Pretendard, sans-serif" font-size="17" fill="#f5f3ec" fill-opacity="0.88" letter-spacing="3.5" text-anchor="middle">오즈의 마법사</text>
+          </svg>
+        </div>
+        <div class="size-tag">M · 450×450 mm (권장)</div>
+      </div>
+
+      <div>
+        <div class="sign-square size-l">
+          <span class="screw tl"></span><span class="screw tr"></span>
+          <span class="screw bl"></span><span class="screw br"></span>
+          <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="128" r="55" fill="none" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="200" y1="76" x2="295" y2="76" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="295" y1="76" x2="200" y2="180" stroke="#f0b90b" stroke-width="13"/>
+            <line x1="200" y1="180" x2="295" y2="180" stroke="#f5f3ec" stroke-width="8"/>
+            <line x1="70" y1="232" x2="290" y2="232" stroke="#f5f3ec" stroke-width="1.2" opacity="0.75"/>
+            <text x="180" y="278" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#f5f3ec" letter-spacing="2.2" text-anchor="middle">OZ CLASS</text>
+            <text x="180" y="312" font-family="Pretendard, sans-serif" font-size="17" fill="#f5f3ec" fill-opacity="0.88" letter-spacing="3.5" text-anchor="middle">오즈의 마법사</text>
+          </svg>
+        </div>
+        <div class="size-tag">L · 600×600 mm</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTION SPEC -->
+  <section>
+    <div class="section-label">03 / Production Spec</div>
+    <h2 class="section-title">제작 사양</h2>
+    <dl class="spec-grid">
+      <dt>형태</dt>
+      <dd>정사각형(1:1), 직각 모서리. 라운드/모따기 없음.</dd>
+
+      <dt>권장 사이즈</dt>
+      <dd>매장 입구·정면 벽 → M 450×450 mm 권장. 좁은 공간 → S 300×300 mm. 천장 높은 매장 → L 600×600 mm.</dd>
+
+      <dt>소재</dt>
+      <dd>1순위: 무광 아크릴 5T~8T + UV 인쇄. 2순위: 무광 코팅 알루미늄 + 실크 인쇄. 광택은 옐로우 사선의 채도가 죽고 반사로 가독성↓.</dd>
+
+      <dt>색상</dt>
+      <dd>
+        BG · Brand Emerald → <strong>#00735E</strong> / Pantone 3298 C / CMYK 100·0·65·35<br>
+        STROKE · Paper → <strong>#F5F3EC</strong> / CMYK 3·3·10·0<br>
+        ACCENT · Yellow → <strong>#F0B90B</strong> / Pantone 7549 C / CMYK 0·30·100·0
+      </dd>
+
+      <dt>여백</dt>
+      <dd>아트워크 내 패딩 9%(상하좌우 동일). 옐로우 사선 두께 13/360 ≈ 3.6% — 실제 450 mm 사이즈에서 약 16 mm 선폭.</dd>
+
+      <dt>마운트</dt>
+      <dd>네 모서리 스테인리스 스페이서 13 mm — 벽에서 살짝 띄워 그림자가 지도록(고급 인상). 직접 부착 대비 시각적 무게감↑.</dd>
+
+      <dt>조명</dt>
+      <dd>상단 워시 라이트 또는 양옆 매립등. 백라이트 적용 시 옐로우 사선만 별도 발광 채널로 가공하면 야간 식별력 극대화.</dd>
+    </dl>
+  </section>
+
+  <footer>
+    <div>OZ Class · Indoor Signage · Emerald Square v1.0</div>
+    <div>Insight, not magic.</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OZ Class · Brand Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1A1A1A;
+      --paper: #F5F3EC;
+      --emerald: #00735E;
+      --gold: #F0B90B;
+      --gray-light: rgba(245,243,236,0.72);
+      --gray-mid: rgba(245,243,236,0.45);
+      --gray-dim: rgba(245,243,236,0.28);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'Pretendard Variable', 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .serif { font-family: 'DM Serif Display', serif; }
+
+    /* ── COVER ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(240,185,11,0.15);
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 75% 40%, rgba(0,115,94,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(240,185,11,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .cover-watermark {
+      position: absolute;
+      top: 50%;
+      right: -60px;
+      transform: translateY(-50%);
+      font-family: 'DM Serif Display', serif;
+      font-size: 28vw;
+      color: rgba(245,243,236,0.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .cover-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .cover-label::after {
+      content: '';
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+    .cover-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(64px, 12vw, 130px);
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+    .cover-title span { color: var(--gold); }
+    .cover-tag {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 60px;
+    }
+    .cover-slogan {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(20px, 3.5vw, 32px);
+      color: var(--gold);
+      padding-top: 44px;
+      border-top: 1px solid rgba(240,185,11,0.25);
+      max-width: 520px;
+    }
+    .cover-version {
+      position: absolute;
+      bottom: 44px;
+      right: 80px;
+      font-size: 11px;
+      color: var(--gray-dim);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 96px 80px;
+      max-width: 960px;
+      border-bottom: 1px solid rgba(245,243,236,0.07);
+    }
+    .section-num {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-num::after {
+      content: '';
+      width: 56px;
+      height: 1px;
+      background: rgba(240,185,11,0.3);
+    }
+    .section-h {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 60px);
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+    .body-text {
+      font-size: 16px;
+      line-height: 2.0;
+      color: var(--gray-light);
+    }
+    .body-text p + p { margin-top: 24px; }
+    .body-text .pull {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--paper);
+      line-height: 1.6;
+      margin-top: 40px;
+      padding-left: 24px;
+      border-left: 3px solid var(--gold);
+    }
+
+    /* ── WHAT WE DO ── */
+    .do-list { margin-top: 8px; }
+    .do-item {
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(245,243,236,0.07);
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .do-item:last-child { border-bottom: none; }
+    .do-label {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      padding-top: 4px;
+    }
+    .do-body {
+      font-size: 15px;
+      color: var(--gray-light);
+      line-height: 1.9;
+    }
+
+    /* ── SERVICE FORMATS ── */
+    .format-list { display: flex; flex-direction: column; gap: 20px; }
+    .format-card {
+      background: rgba(245,243,236,0.03);
+      border: 1px solid rgba(245,243,236,0.08);
+      border-left: 3px solid var(--emerald);
+      padding: 32px 36px;
+      transition: border-color 0.2s;
+    }
+    .format-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--paper);
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+    .format-card-body {
+      font-size: 14px;
+      color: var(--gray-mid);
+      line-height: 1.9;
+    }
+    .format-note {
+      margin-top: 36px;
+      font-size: 14px;
+      color: rgba(240,185,11,0.85);
+      font-style: italic;
+      font-family: 'DM Serif Display', serif;
+    }
+
+    /* ── TONE OF VOICE ── */
+    .tone-list { list-style: none; margin-top: 8px; }
+    .tone-list li {
+      display: flex;
+      gap: 24px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(245,243,236,0.06);
+      font-size: 15px;
+      color: var(--gray-light);
+      line-height: 1.85;
+    }
+    .tone-list li:last-child { border-bottom: none; }
+    .tone-list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* ── VISUAL IDENTITY ── */
+    .vi-colors {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-bottom: 48px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .vi-swatch {
+      height: 88px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 14px 16px;
+    }
+    .vi-swatch-name {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+    .vi-swatch-hex {
+      font-size: 11px;
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+    }
+    .vi-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 48px;
+    }
+    .vi-row-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .vi-row-value {
+      font-size: 14px;
+      color: var(--gray-mid);
+      line-height: 1.9;
+    }
+    .vi-prohibition {
+      margin-top: 40px;
+      padding: 28px 32px;
+      border: 1px dashed rgba(245,243,236,0.15);
+      border-radius: 2px;
+    }
+    .vi-prohibition-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(200,80,60,0.8);
+      margin-bottom: 12px;
+    }
+    .vi-prohibition-list {
+      font-size: 14px;
+      color: var(--gray-mid);
+      line-height: 2;
+    }
+
+    /* ── DOC FOOTER ── */
+    .doc-footer {
+      padding: 56px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(240,185,11,0.12);
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-meta {
+      text-align: right;
+    }
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--gray-dim);
+      line-height: 2;
+    }
+    .footer-back {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--emerald);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .footer-back:hover { color: var(--paper); }
+
+    /* ── PRINT ── */
+    /* ── LIGHT THEME ── */
+    body { background: var(--paper); color: var(--ink); }
+
+    /* 커버만 다크 유지 */
+    .cover { background: var(--ink); color: var(--paper); }
+
+    /* 섹션 */
+    .section { border-bottom-color: rgba(26,26,26,0.08); }
+    .section-h { color: var(--ink); }
+    .body-text { color: rgba(26,26,26,0.68); }
+    .body-text .pull { color: var(--ink); }
+
+    /* What We Do */
+    .do-body { color: rgba(26,26,26,0.65); }
+    .do-item { border-bottom-color: rgba(26,26,26,0.08); }
+
+    /* Service Formats */
+    .format-card {
+      background: rgba(26,26,26,0.03);
+      border-color: rgba(26,26,26,0.1);
+      border-left-color: var(--emerald);
+    }
+    .format-card-title { color: var(--ink); }
+    .format-card-body { color: rgba(26,26,26,0.58); }
+
+    /* Tone of Voice */
+    .tone-list li { color: rgba(26,26,26,0.68); border-bottom-color: rgba(26,26,26,0.07); }
+
+    /* Visual Identity */
+    .vi-details .vi-row-value { color: rgba(26,26,26,0.6); }
+    .vi-prohibition { border-color: rgba(26,26,26,0.15); }
+    .vi-prohibition-list { color: rgba(26,26,26,0.58); }
+
+    /* Footer */
+    .doc-footer { border-top-color: rgba(26,26,26,0.1); }
+    .footer-logo { color: var(--ink); }
+    .footer-tagline { color: rgba(26,26,26,0.45); }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; color-adjust: exact; }
+      .cover, .section { break-inside: avoid; }
+      .footer-back { display: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .cover, .section, .doc-footer { padding: 52px 28px; }
+      .cover-version { right: 28px; }
+      .vi-colors { grid-template-columns: repeat(2, 1fr); }
+      .vi-details { grid-template-columns: 1fr; }
+      .do-item { grid-template-columns: 1fr; gap: 12px; }
+      .doc-footer { flex-direction: column; gap: 32px; align-items: flex-start; }
+      .footer-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── COVER ── -->
+  <div class="cover">
+    <div class="cover-watermark">OZ</div>
+    <div class="cover-label">Brand Story Document</div>
+    <h1 class="cover-title">OZ<br><span>Class</span></h1>
+    <div class="cover-tag">Insight · Forecast</div>
+    <div class="cover-slogan">제대로 알면, 흐름이 보입니다</div>
+    <div class="cover-version">Brand Document v2.0 · 2026</div>
+  </div>
+
+  <!-- ── 01 BRAND STORY ── -->
+  <section class="section">
+    <div class="section-num">01 / BRAND STORY</div>
+    <h2 class="section-h">흐름이<br>먼저 있었다</h2>
+    <div class="body-text">
+      <p>세상에는 눈에 보이지 않는 흐름이 있다.</p>
+      <p>명리는 그 흐름을 시간 속에서 읽는다. 수천 년의 관찰이 쌓인 학문이다. 자본 시장은 같은 흐름을 가격이라는 형태로 보여준다. 인간 군중의 욕망과 공포가 실시간으로 새겨지는 기록이다.</p>
+      <p>두 세계는 전혀 달라 보인다. 그러나 제대로 배운 사람에게는 결국 같은 언어로 읽힌다. 흐름을 보는 눈은 타고나는 것이 아니라, 배움을 통해 만들어진다.</p>
+      <p class="pull">OZ Class는 그 언어를 함께 배우는 곳이다.</p>
+    </div>
+  </section>
+
+  <!-- ── 02 MISSION ── -->
+  <section class="section">
+    <div class="section-num">02 / MISSION</div>
+    <h2 class="section-h">운명과 자본,<br>두 흐름을 함께 읽는다</h2>
+    <div class="body-text">
+      <p>동양의 명리는 수천 년간 시간과 사람의 흐름을 읽어왔다. 자본 시장은 인간 군중의 욕망과 공포를 가격이라는 형태로 실시간으로 보여준다. 표면이 다를 뿐, 둘 다 '흐름의 학문'이다.</p>
+      <p>OZ Class는 이 두 흐름을 깊이 배움으로써 실제 의사결정에 쓸 수 있는 통찰을 만드는 것을 사명으로 한다.</p>
+      <p class="pull">배움이 깊어질수록 흐름이 보이고,<br>흐름이 보일수록 결정이 단단해진다.</p>
+    </div>
+  </section>
+
+  <!-- ── 03 WHAT WE DO ── -->
+  <section class="section">
+    <div class="section-num">03 / WHAT WE DO</div>
+    <h2 class="section-h">성인을 위한<br>통찰 교육</h2>
+    <div class="do-list">
+      <div class="do-item">
+        <div class="do-label">명리학</div>
+        <div class="do-body">사주의 기본 원리부터 십성·격국·운세 흐름의 실전 해석까지. 수천 년의 관찰 기록에서 정제된 학문을 체계적으로 배운다.</div>
+      </div>
+      <div class="do-item">
+        <div class="do-label">자본 시장</div>
+        <div class="do-body">차트·매크로·기업 분석 위에 '흐름을 읽는 관점'을 더한 실전 투자 교육. 시장의 언어를 읽는 법을 배운다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 04 SERVICE FORMATS ── -->
+  <section class="section">
+    <div class="section-num">04 / SERVICE FORMATS</div>
+    <h2 class="section-h">두 개의<br>트랙</h2>
+    <div class="format-list">
+      <div class="format-card">
+        <div class="format-card-title">오프라인 강좌</div>
+        <div class="format-card-body">정해진 커리큘럼을 따라 그룹으로 학습한다. 명리와 시장의 기초부터 심화 과정까지 단계별로 운영된다.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-card-title">1:1 컨설팅</div>
+        <div class="format-card-body">개인의 사주, 자산 상황, 인생 시점을 함께 들여다보는 맞춤형 세션이다. 일반 강좌에서 다룰 수 없는, 결정의 영역을 다룬다.</div>
+      </div>
+    </div>
+    <p class="format-note">소수 정예로 운영한다. 양보다 깊이를, 다수보다 진지한 학습자를 지향한다.</p>
+  </section>
+
+  <!-- ── 05 TONE OF VOICE ── -->
+  <section class="section">
+    <div class="section-num">05 / TONE OF VOICE</div>
+    <h2 class="section-h">어떻게<br>말할 것인가</h2>
+    <ul class="tone-list">
+      <li>단정적이되 단정적이지 않다 — 확신은 드러내되 단언하지 않는다.</li>
+      <li>'통찰' '판단' '흐름' '배움'의 언어로 말한다.</li>
+      <li>학생을 가르치지 않는다. 함께 보는 사람을 동등한 탐구자로 대한다.</li>
+      <li>화려한 수식보다 명료한 한 문장. 모든 카피는 마지막까지 깎아낸다.</li>
+      <li>이 브랜드는 누군가의 인생을 예측하지 않는다. 흐름을 읽는 법을 함께 배울 뿐이다.</li>
+    </ul>
+  </section>
+
+  <!-- ── 06 VISUAL IDENTITY ── -->
+  <section class="section">
+    <div class="section-num">06 / VISUAL IDENTITY</div>
+    <h2 class="section-h">브랜드<br>비주얼 요약</h2>
+
+    <div class="vi-colors">
+      <div class="vi-swatch" style="background:#1A1A1A;">
+        <div class="vi-swatch-name" style="color:rgba(245,243,236,0.7);">Ink</div>
+        <div class="vi-swatch-hex" style="color:rgba(245,243,236,0.4);">#1A1A1A</div>
+      </div>
+      <div class="vi-swatch" style="background:#F5F3EC;">
+        <div class="vi-swatch-name" style="color:#1A1A1A;">Paper</div>
+        <div class="vi-swatch-hex" style="color:rgba(26,26,26,0.5);">#F5F3EC</div>
+      </div>
+      <div class="vi-swatch" style="background:#00735E;">
+        <div class="vi-swatch-name" style="color:rgba(245,243,236,0.9);">Emerald</div>
+        <div class="vi-swatch-hex" style="color:rgba(245,243,236,0.55);">#00735E</div>
+      </div>
+      <div class="vi-swatch" style="background:#F0B90B;">
+        <div class="vi-swatch-name" style="color:#1A1A1A;">Gold</div>
+        <div class="vi-swatch-hex" style="color:rgba(26,26,26,0.55);">#F0B90B</div>
+      </div>
+    </div>
+
+    <div class="vi-details">
+      <div>
+        <div class="vi-row-label">타이포그래피</div>
+        <div class="vi-row-value">
+          한글 — Pretendard<br>
+          영문 — Inter<br>
+          디스플레이 — DM Serif Display
+        </div>
+      </div>
+      <div>
+        <div class="vi-row-label">로고 구성</div>
+        <div class="vi-row-value">
+          O — 완전한 원, 순환과 통찰<br>
+          Z — 차콜 프레임 + 골드 사선
+        </div>
+      </div>
+      <div>
+        <div class="vi-row-label">핵심 키워드</div>
+        <div class="vi-row-value">
+          통찰 · 흐름 · 배움 · 판단
+        </div>
+      </div>
+      <div>
+        <div class="vi-row-label">브랜드 슬로건</div>
+        <div class="vi-row-value">
+          제대로 알면, 흐름이 보입니다
+        </div>
+      </div>
+    </div>
+
+    <div class="vi-prohibition">
+      <div class="vi-prohibition-label">사용 금지</div>
+      <div class="vi-prohibition-list">
+        태극 풀세트 &nbsp;·&nbsp; 붓글씨 &nbsp;·&nbsp; 그라디언트 일체
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="doc-footer">
+    <div class="footer-logo">OZ <span>Class</span></div>
+    <div class="footer-meta">
+      <div class="footer-tagline">
+        운명과 시장을 함께 읽는 곳<br>
+        Brand Document v2.0 · 2026
+      </div>
+      <a class="footer-back" href="oz-homepage.html">← 홈페이지로 돌아가기</a>
+    </div>
+  </footer>
+
+</body>
+</html>

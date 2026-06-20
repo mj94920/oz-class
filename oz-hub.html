@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OZ Class · 브랜드 허브</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --ink:     #1A1A1A;
+      --paper:   #F5F3EC;
+      --emerald: #00735E;
+      --gold:    #F0B90B;
+      --white:   #FFFFFF;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Pretendard Variable', 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .hub-header {
+      padding: 72px 64px 56px;
+      border-bottom: 1px solid rgba(26,26,26,0.1);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .header-left {}
+    .hub-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hub-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .hub-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 52px;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .hub-title em {
+      font-style: italic;
+      color: var(--emerald);
+    }
+    .hub-sub {
+      margin-top: 20px;
+      font-size: 15px;
+      color: rgba(26,26,26,0.52);
+      line-height: 1.6;
+    }
+    .header-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      flex-shrink: 0;
+      opacity: 0.28;
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+    .header-logo span { color: var(--gold); }
+
+    /* ── MAIN GRID ── */
+    .hub-main {
+      padding: 64px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border: 1px solid rgba(26,26,26,0.08);
+      border-radius: 4px;
+      text-decoration: none;
+      color: inherit;
+      padding: 36px 32px 32px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--emerald));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(26,26,26,0.1);
+      border-color: rgba(26,26,26,0.12);
+    }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-tag {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--card-accent, var(--emerald));
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .card-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(26,26,26,0.55);
+      flex: 1;
+    }
+    .card-arrow {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--card-accent, var(--emerald));
+      letter-spacing: 0.05em;
+    }
+    .card-arrow svg {
+      width: 14px; height: 14px;
+      transition: transform 0.18s ease;
+    }
+    .card:hover .card-arrow svg { transform: translateX(4px); }
+
+    /* PDF card variant */
+    .card.pdf .card-arrow::after { content: '↗'; font-size: 13px; }
+
+    /* Large featured card (spans 2 cols) */
+    .card.featured {
+      grid-column: span 2;
+      flex-direction: row;
+      gap: 40px;
+      align-items: center;
+      min-height: 180px;
+      padding: 40px 48px;
+    }
+    .card.featured .card-body { flex: 1; }
+    .card.featured .card-visual {
+      width: 160px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card.featured .card-title { font-size: 34px; }
+
+    /* Homepage card — full width */
+    .card.full { grid-column: 1 / -1; min-height: 160px; }
+    .card.full .card-title { font-size: 32px; }
+
+    /* ── LOGO MARK INLINE ── */
+    .oz-mark {
+      font-family: 'DM Serif Display', serif;
+      font-size: 72px;
+      font-style: italic;
+      color: rgba(26,26,26,0.06);
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* ── FOOTER ── */
+    .hub-footer {
+      padding: 40px 64px;
+      border-top: 1px solid rgba(26,26,26,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-note {
+      font-size: 12px;
+      color: rgba(26,26,26,0.35);
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+    }
+    .footer-logo span { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .hub-header { padding: 48px 28px 40px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .hub-title { font-size: 36px; }
+      .hub-main { padding: 36px 28px; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .card.full { grid-column: 1 / -1; }
+      .card.featured { grid-column: 1 / -1; flex-direction: column; }
+      .card.featured .card-visual { display: none; }
+      .hub-footer { padding: 28px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .hub-main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="hub-header">
+    <div class="header-left">
+      <div class="hub-label">OZ CLASS · BRAND HUB</div>
+      <h1 class="hub-title">모든 페이지,<br>한곳에서<em>.</em></h1>
+      <p class="hub-sub">웹사이트, 브랜드 자료, 수업 일정을 모았습니다.</p>
+    </div>
+    <div class="header-logo">O<span>Z</span></div>
+  </header>
+
+  <!-- ── GRID ── -->
+  <main class="hub-main">
+
+    <!-- 홈페이지 (full width) -->
+    <a href="oz-homepage.html"
+       class="card full"
+       style="--card-accent: var(--emerald);">
+      <div class="card-tag">Web · Main</div>
+      <div class="card-title">홈페이지</div>
+      <div class="card-desc">OZ Class의 대문. 브랜드 소개, 수업 안내, 수강 문의 폼.</div>
+      <div class="card-arrow">
+        열기
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </div>
+    </a>
+
+    <!-- 브랜드 스토리 -->
+    <a href="oz-brand-story.html"
+       class="card"
+       style="--card-accent: var(--gold);">
+      <div class="card-tag">Brand · Story</div>
+      <div class="card-title">브랜드<br>스토리</div>
+      <div class="card-desc">OZ의 철학, 미션, 서비스 구조, 톤 앤 매너, 비주얼 아이덴티티.</div>
+      <div class="card-arrow">
+        열기
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </div>
+    </a>
+
+    <!-- 브랜드 시트 -->
+    <a href="oz-brand-sheet.html"
+       class="card"
+       style="--card-accent: var(--gold);">
+      <div class="card-tag">Brand · Sheet</div>
+      <div class="card-title">브랜드<br>시트</div>
+      <div class="card-desc">컬러 팔레트, 타이포그래피, 로고 사용 규정을 한 장에 정리한 레퍼런스.</div>
+      <div class="card-arrow">
+        열기
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </div>
+    </a>
+
+    <!-- 트레이드마크 가이드 (PDF) -->
+    <a href="oz-trademark-guide.pdf"
+       target="_blank"
+       class="card pdf"
+       style="--card-accent: rgba(26,26,26,0.45);">
+      <div class="card-tag">Brand · PDF</div>
+      <div class="card-title">트레이드마크<br>가이드</div>
+      <div class="card-desc">로고 · 심볼 · 워드마크 사용 규정 및 금지 사례 정리 문서.</div>
+      <div class="card-arrow">
+        PDF 열기
+      </div>
+    </a>
+
+    <!-- 캘린더 (featured) -->
+    <a href="oz-calendar.html"
+       class="card featured"
+       style="--card-accent: var(--emerald);">
+      <div class="card-body">
+        <div class="card-tag">Web · Schedule</div>
+        <div class="card-title">수업 캘린더</div>
+        <div class="card-desc">매주 수·일요일 수업 일정. 날짜를 클릭하면 바로 수강신청을 할 수 있습니다.</div>
+        <div class="card-arrow">
+          열기
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-visual">
+        <div class="oz-mark">OZ</div>
+      </div>
+    </a>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="hub-footer">
+    <span class="footer-note">© 2025 OZ Class · 내부 참조용 허브 페이지</span>
+    <span class="footer-logo">O<span>Z</span></span>
+  </footer>
+
+</body>
+</html>

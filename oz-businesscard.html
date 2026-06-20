@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OZ Class — 명함 시안 (오은미 Founder)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f3ec;
+    --emerald: #00735e;
+    --brick: #f0b90b;
+    --stone: #5a5a5a;
+    --whisper: #c9c5b8;
+  }
+  html, body { background: var(--paper); }
+  body {
+    font-family: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 80px 56px; }
+
+  header.cover {
+    padding-bottom: 48px;
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 40px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .display {
+    font-family: 'DM Serif Display', 'Pretendard', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5.5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .lede {
+    font-size: 17px;
+    color: var(--stone);
+    max-width: 720px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: -0.01em;
+  }
+  section { margin-bottom: 96px; }
+
+  /* Business card */
+  .card-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+  .card {
+    aspect-ratio: 9/5;
+    border: 1px solid var(--whisper);
+    padding: 32px 36px;
+    background: var(--paper);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.04),
+      0 16px 32px -12px rgba(0,0,0,0.15);
+  }
+  .card.back {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .card-mark { display: flex; align-items: center; gap: 14px; }
+  .card-name {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--stone);
+  }
+  .card.back .card-title { color: rgba(245, 243, 236, 0.6); }
+  .card-contact {
+    font-size: 11px;
+    line-height: 1.9;
+    color: var(--stone);
+    letter-spacing: 0.04em;
+  }
+  .card.back .card-contact { color: rgba(245, 243, 236, 0.7); }
+  .card-back-slogan {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .card-corner {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .card.back .card-corner { color: rgba(245, 243, 236, 0.5); }
+
+  /* Detail enlarged card */
+  .card-large { aspect-ratio: 9/5; max-width: 720px; margin: 0 auto; padding: 44px 52px; }
+  .card-large .card-name { font-size: 30px; }
+  .card-large .card-title { font-size: 13px; }
+  .card-large .card-contact { font-size: 13px; line-height: 2; }
+  .card-large .card-back-slogan { font-size: 40px; }
+
+  /* Notes */
+  .notes {
+    background: white;
+    border: 1px solid var(--whisper);
+    padding: 28px 32px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--stone);
+  }
+  .notes strong { color: var(--ink); font-weight: 600; }
+  .notes ul { margin: 8px 0 0 18px; }
+  .notes ul li { margin-bottom: 6px; }
+
+  /* Spec */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 16px 32px;
+    font-size: 13px;
+  }
+  .spec-grid dt {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    padding-top: 16px;
+    border-top: 1px solid var(--whisper);
+  }
+  .spec-grid dd {
+    color: var(--stone);
+    padding-top: 16px;
+    border-top: 1px solid var(--whisper);
+    line-height: 1.7;
+  }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ink);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 720px) {
+    .container { padding: 56px 24px; }
+    .card-row { grid-template-columns: 1fr; }
+    .spec-grid { grid-template-columns: 1fr; gap: 8px 0; }
+    .spec-grid dd { border-top: 0; padding-top: 0; padding-bottom: 16px; border-bottom: 1px solid var(--whisper); }
+    .spec-grid dt { padding-top: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- COVER -->
+  <header class="cover">
+    <div class="meta">
+      <div>Business Card · v1.1</div>
+      <div>2026 · OZ Class</div>
+    </div>
+    <h1 class="display">명함 시안 — 오은미 Founder</h1>
+    <p class="lede">
+      브랜드 컬러(Ink #1A1A1A · Paper #F5F3EC · Yellow #F0B90B)와 슬로건 "마법이 아니라, 통찰입니다."는
+      그대로 유지하고, 인적 정보만 업데이트했습니다.
+    </p>
+  </header>
+
+  <!-- 01 LARGE PREVIEW -->
+  <section>
+    <div class="section-label">01 / Detail View</div>
+    <h2 class="section-title">앞면 · 확대 시안</h2>
+
+    <div class="card card-large">
+      <div class="card-corner">FRONT · 90×50mm</div>
+      <div class="card-mark">
+        <svg viewBox="0 0 240 120" width="180" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="60" r="28" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+          <line x1="80" y1="35" x2="125" y2="35" stroke="#1a1a1a" stroke-width="5"/>
+          <line x1="125" y1="35" x2="80" y2="85" stroke="#f0b90b" stroke-width="8"/>
+          <line x1="80" y1="85" x2="125" y2="85" stroke="#1a1a1a" stroke-width="5"/>
+          <line x1="148" y1="32" x2="148" y2="88" stroke="#1a1a1a" stroke-width="0.8"/>
+          <text x="158" y="58" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a1a" letter-spacing="1.5">OZ CLASS</text>
+          <text x="158" y="78" font-family="Pretendard, sans-serif" font-size="9" font-weight="400" fill="#5a5a5a" letter-spacing="2">오즈의 마법사</text>
+        </svg>
+      </div>
+      <div>
+        <div class="card-name">오 은 미</div>
+        <div class="card-title">FOUNDER · 명리 / 주식 / 천연비누 &amp; 천연화장품</div>
+      </div>
+      <div class="card-contact">
+        M. 010 5213 1008<br>
+        E. wkgid88@naver.com
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 FRONT + BACK -->
+  <section>
+    <div class="section-label">02 / Front &amp; Back</div>
+    <h2 class="section-title">앞면 · 뒷면 페어</h2>
+    <div class="card-row">
+      <div class="card">
+        <div class="card-corner">FRONT · 90×50mm</div>
+        <div class="card-mark">
+          <svg viewBox="0 0 240 120" width="160" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="60" r="28" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+            <line x1="80" y1="35" x2="125" y2="35" stroke="#1a1a1a" stroke-width="5"/>
+            <line x1="125" y1="35" x2="80" y2="85" stroke="#f0b90b" stroke-width="8"/>
+            <line x1="80" y1="85" x2="125" y2="85" stroke="#1a1a1a" stroke-width="5"/>
+            <line x1="148" y1="32" x2="148" y2="88" stroke="#1a1a1a" stroke-width="0.8"/>
+            <text x="158" y="58" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a1a" letter-spacing="1.5">OZ CLASS</text>
+            <text x="158" y="78" font-family="Pretendard, sans-serif" font-size="9" font-weight="400" fill="#5a5a5a" letter-spacing="2">오즈의 마법사</text>
+          </svg>
+        </div>
+        <div>
+          <div class="card-name">오 은 미</div>
+          <div class="card-title">FOUNDER · 명리 / 주식 / 천연비누 &amp; 천연화장품</div>
+        </div>
+        <div class="card-contact">
+          M. 010 5213 1008<br>
+          E. wkgid88@naver.com
+        </div>
+      </div>
+
+      <div class="card back">
+        <div class="card-corner">BACK</div>
+        <div class="card-back-slogan">
+          마법이 아니라,<br>
+          <span style="color:#f0b90b;">통찰</span>입니다.
+        </div>
+        <div style="font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:rgba(245,243,236,0.5);">Insight, not magic.</div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>타이틀 라인 처리에 대한 메모</strong> — "명리 / 주식 / 천연비누 &amp; 천연화장품"이 한 줄로는 다소 길어
+      90×50mm 실제 사이즈에서는 살짝 빡빡할 수 있습니다. 두 가지 옵션을 같이 보여드리니 선호하시는 쪽으로 확정해주세요.
+    </div>
+  </section>
+
+  <!-- 03 LAYOUT OPTIONS -->
+  <section>
+    <div class="section-label">03 / Title Line Options</div>
+    <h2 class="section-title">타이틀 줄바꿈 옵션</h2>
+    <div class="card-row">
+      <div>
+        <div class="card">
+          <div class="card-corner">OPTION A · 한 줄</div>
+          <div class="card-mark">
+            <svg viewBox="0 0 240 120" width="160" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="60" r="28" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+              <line x1="80" y1="35" x2="125" y2="35" stroke="#1a1a1a" stroke-width="5"/>
+              <line x1="125" y1="35" x2="80" y2="85" stroke="#f0b90b" stroke-width="8"/>
+              <line x1="80" y1="85" x2="125" y2="85" stroke="#1a1a1a" stroke-width="5"/>
+              <line x1="148" y1="32" x2="148" y2="88" stroke="#1a1a1a" stroke-width="0.8"/>
+              <text x="158" y="58" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a1a" letter-spacing="1.5">OZ CLASS</text>
+              <text x="158" y="78" font-family="Pretendard, sans-serif" font-size="9" font-weight="400" fill="#5a5a5a" letter-spacing="2">오즈의 마법사</text>
+            </svg>
+          </div>
+          <div>
+            <div class="card-name">오 은 미</div>
+            <div class="card-title" style="font-size:10px;">FOUNDER · 명리 / 주식 / 천연비누 &amp; 천연화장품</div>
+          </div>
+          <div class="card-contact">
+            M. 010 5213 1008<br>
+            E. wkgid88@naver.com
+          </div>
+        </div>
+        <div style="margin-top:12px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--stone);">A · 한 줄 (콤팩트)</div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-corner">OPTION B · 두 줄</div>
+          <div class="card-mark">
+            <svg viewBox="0 0 240 120" width="160" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="60" r="28" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+              <line x1="80" y1="35" x2="125" y2="35" stroke="#1a1a1a" stroke-width="5"/>
+              <line x1="125" y1="35" x2="80" y2="85" stroke="#f0b90b" stroke-width="8"/>
+              <line x1="80" y1="85" x2="125" y2="85" stroke="#1a1a1a" stroke-width="5"/>
+              <line x1="148" y1="32" x2="148" y2="88" stroke="#1a1a1a" stroke-width="0.8"/>
+              <text x="158" y="58" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a1a" letter-spacing="1.5">OZ CLASS</text>
+              <text x="158" y="78" font-family="Pretendard, sans-serif" font-size="9" font-weight="400" fill="#5a5a5a" letter-spacing="2">오즈의 마법사</text>
+            </svg>
+          </div>
+          <div>
+            <div class="card-name">오 은 미</div>
+            <div class="card-title" style="line-height:1.7;">
+              FOUNDER<br>
+              명리 / 주식 / 천연비누 &amp; 천연화장품
+            </div>
+          </div>
+          <div class="card-contact">
+            M. 010 5213 1008<br>
+            E. wkgid88@naver.com
+          </div>
+        </div>
+        <div style="margin-top:12px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--stone);">B · 두 줄 (가독성↑)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 SPEC -->
+  <section>
+    <div class="section-label">04 / Production Spec</div>
+    <h2 class="section-title">인쇄 사양</h2>
+    <dl class="spec-grid">
+      <dt>사이즈</dt>
+      <dd>한국 표준 명함 90×50 mm. 모서리 둥글림 없음(샤프 컷).</dd>
+
+      <dt>종이</dt>
+      <dd>1순위: 무광 매트지 300 gsm. 2순위: 코튼지(미색) 300 gsm — 손맛 있는 질감 + 명리 분야 어울림.</dd>
+
+      <dt>인쇄 컬러</dt>
+      <dd>
+        앞면 잉크블랙 · 뒷면 풀배경 → K100 + C30 (리치블랙)<br>
+        옐로우 사선 · "통찰" 글자 → Pantone 7549 C 별색 또는 CMYK 0·30·100·0
+      </dd>
+
+      <dt>후가공</dt>
+      <dd>권장: 옐로우 사선 부분만 형압(엠보싱) 또는 박. 손가락으로 만졌을 때 살짝 도드라지는 디테일 → 고급 인상 + 브랜드 식별 포인트 강화.</dd>
+
+      <dt>여백 / 안전선</dt>
+      <dd>외곽 3 mm 재단선 + 5 mm 안전선 유지. 텍스트는 안전선 안쪽에만 배치.</dd>
+
+      <dt>인쇄 수량 권장</dt>
+      <dd>초도 200매(소량 발주 → 정보 변경 시 부담↓). 안착되면 500매 단위로 추가.</dd>
+    </dl>
+  </section>
+
+  <footer>
+    <div>OZ Class · Business Card v1.1 · 오은미 Founder</div>
+    <div>Insight, not magic.</div>
+  </footer>
+
+</div>
+</body>
+</html>

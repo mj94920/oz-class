@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OZ Class · 수업 일정</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1A1A1A;
+      --paper: #F5F3EC;
+      --emerald: #00735E;
+      --emerald-dim: rgba(0,115,94,0.15);
+      --emerald-mid: rgba(0,115,94,0.35);
+      --gold: #F0B90B;
+      --gold-dim: rgba(240,185,11,0.12);
+      --white: #FFFFFF;
+      --gray-light: rgba(245,243,236,0.7);
+      --gray-mid: rgba(245,243,236,0.4);
+      --gray-dim: rgba(245,243,236,0.2);
+      --border: rgba(245,243,236,0.08);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'Pretendard Variable', 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SITE NAV ── */
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      color: var(--paper);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-back {
+      font-size: 13px;
+      color: var(--gray-mid);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--paper); }
+    .nav-back::before { content: '←'; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 64px 60px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-header-label::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: rgba(240,185,11,0.4);
+    }
+    .page-header-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .page-header-sub {
+      font-size: 14px;
+      color: var(--gray-mid);
+      line-height: 1.7;
+    }
+    .page-header-sub em {
+      font-style: normal;
+      color: var(--emerald);
+    }
+
+    /* ── CALENDAR WRAPPER ── */
+    .calendar-wrap {
+      padding: 48px 60px 80px;
+      max-width: 820px;
+    }
+
+    /* Month navigation */
+    .month-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .month-nav-btn {
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--gray-mid);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .month-nav-btn:hover {
+      border-color: rgba(245,243,236,0.25);
+      color: var(--paper);
+    }
+    .month-label {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      letter-spacing: 0.02em;
+    }
+    .month-label span {
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-mid);
+      margin-left: 12px;
+    }
+
+    /* Day-of-week header */
+    .dow-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    .dow-cell {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      padding: 8px 0;
+      color: var(--gray-dim);
+    }
+    .dow-cell.class-day { color: var(--emerald); font-weight: 500; }
+    .dow-cell.sun { color: rgba(220,100,80,0.5); }
+
+    /* Calendar grid */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    .cal-cell {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: default;
+      border-radius: 2px;
+      transition: background 0.15s;
+    }
+    .cal-cell.empty { background: transparent; }
+    .cal-cell.regular {
+      background: rgba(245,243,236,0.02);
+    }
+    .cal-cell.regular:hover {
+      background: rgba(245,243,236,0.05);
+    }
+    .cal-cell.class-day {
+      background: var(--emerald-dim);
+      cursor: pointer;
+    }
+    .cal-cell.class-day:hover {
+      background: var(--emerald-mid);
+    }
+    .cal-day-num {
+      font-size: clamp(13px, 1.8vw, 18px);
+      font-weight: 300;
+      color: var(--gray-mid);
+      line-height: 1;
+    }
+    .cal-cell.class-day .cal-day-num {
+      color: var(--paper);
+      font-weight: 400;
+    }
+    .cal-day-tag {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      color: var(--emerald);
+      margin-top: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .cal-cell.class-day .cal-day-tag {
+      opacity: 1;
+    }
+    /* Today indicator */
+    .cal-cell.today .cal-day-num {
+      color: var(--gold);
+    }
+    .cal-cell.today::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(240,185,11,0.35);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    /* Past days */
+    .cal-cell.past .cal-day-num { opacity: 0.35; }
+    .cal-cell.past.class-day { background: rgba(0,115,94,0.07); }
+    .cal-cell.past.class-day .cal-day-num { color: var(--paper); opacity: 0.35; }
+    .cal-cell.past.class-day .cal-day-tag { opacity: 0.35; }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      gap: 28px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--gray-mid);
+    }
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .legend-dot.class { background: var(--emerald-dim); border: 1px solid rgba(0,115,94,0.4); }
+    .legend-dot.today { background: transparent; border: 1px solid rgba(240,185,11,0.5); }
+
+    /* ── NOTICE ── */
+    .notice {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--gray-dim);
+      line-height: 1.8;
+    }
+    .notice::before { content: '* '; }
+
+    /* ── CLASS INFO STRIP ── */
+    .class-strip {
+      margin-top: 52px;
+      padding: 36px 40px;
+      background: rgba(245,243,236,0.03);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--emerald);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .strip-item-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .strip-item-value {
+      font-size: 15px;
+      color: var(--gray-light);
+      line-height: 1.8;
+    }
+
+    /* ── CTA ── */
+    .cta-area {
+      margin-top: 52px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--emerald);
+      color: var(--paper);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #00624f; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--gray-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--paper); }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      padding: 40px 60px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy {
+      font-size: 11px;
+      color: var(--gray-dim);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #1e1e1e;
+      border: 1px solid rgba(245,243,236,0.1);
+      border-top: 3px solid var(--emerald);
+      width: 100%;
+      max-width: 460px;
+      padding: 40px;
+      position: relative;
+      animation: modalIn 0.2s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--gray-mid);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--paper); }
+    .modal-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .modal-date {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      margin-bottom: 28px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 8px;
+    }
+    .form-input,
+    .form-select {
+      width: 100%;
+      background: rgba(245,243,236,0.04);
+      border: 1px solid rgba(245,243,236,0.12);
+      border-radius: 2px;
+      padding: 12px 14px;
+      color: var(--paper);
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input:focus,
+    .form-select:focus { border-color: var(--emerald); }
+    .form-input::placeholder { color: var(--gray-dim); }
+    .form-select option { background: #1e1e1e; color: var(--paper); }
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .modal-submit {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px;
+      background: var(--emerald);
+      border: none;
+      border-radius: 2px;
+      color: var(--paper);
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-submit:hover:not(:disabled) { background: #00624f; }
+    .modal-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .modal-msg {
+      margin-top: 14px;
+      font-size: 13px;
+      text-align: center;
+      min-height: 20px;
+      color: var(--gray-mid);
+    }
+    .modal-msg.success { color: var(--emerald); }
+    .modal-msg.error { color: rgba(220,80,60,0.9); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .site-nav, .page-header, .calendar-wrap { padding-left: 24px; padding-right: 24px; }
+      .class-strip { grid-template-columns: 1fr; gap: 20px; }
+      .page-footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .cal-day-tag { display: none; }
+      .legend { flex-wrap: wrap; gap: 16px; }
+    }
+
+    /* ── LIGHT THEME ── */
+    body { background: var(--paper); color: var(--ink); }
+
+    .site-nav {
+      background: var(--paper);
+      border-bottom-color: rgba(26,26,26,0.1);
+    }
+    .nav-logo { color: var(--ink); }
+    .nav-back { color: rgba(26,26,26,0.42); }
+    .nav-back:hover { color: var(--ink); }
+
+    .page-header { border-bottom-color: rgba(26,26,26,0.1); }
+    .page-header-sub { color: rgba(26,26,26,0.55); }
+
+    .month-nav-btn {
+      border-color: rgba(26,26,26,0.2);
+      color: rgba(26,26,26,0.45);
+    }
+    .month-nav-btn:hover {
+      border-color: rgba(26,26,26,0.4);
+      color: var(--ink);
+    }
+    .month-label { color: var(--ink); }
+
+    .dow-cell { color: rgba(26,26,26,0.35); }
+    .dow-cell.class-day { color: var(--emerald); }
+
+    .cal-cell.regular { background: rgba(26,26,26,0.025); }
+    .cal-cell.regular:hover { background: rgba(26,26,26,0.06); }
+    .cal-cell { border-color: rgba(26,26,26,0.08); }
+    .cal-day-num { color: rgba(26,26,26,0.45); }
+    .cal-cell.class-day { background: var(--emerald-dim); }
+    .cal-cell.class-day .cal-day-num { color: var(--ink); }
+    .cal-cell.class-day .cal-day-tag { color: var(--emerald); }
+    .cal-cell.past .cal-day-num { color: rgba(26,26,26,0.22); }
+    .cal-cell.today .cal-day-num { color: var(--paper); }
+
+    .legend { border-top-color: rgba(26,26,26,0.1); }
+    .legend-item { color: rgba(26,26,26,0.52); }
+    .notice { color: rgba(26,26,26,0.38); }
+
+    .class-strip {
+      background: rgba(26,26,26,0.03);
+      border-color: rgba(26,26,26,0.1);
+    }
+    .strip-item-label { color: rgba(26,26,26,0.42); }
+    .strip-item-value { color: var(--ink); }
+
+    .page-footer { border-top-color: rgba(26,26,26,0.1); }
+    .footer-logo { color: var(--ink); }
+    .footer-copy { color: rgba(26,26,26,0.38); }
+
+    /* 모달은 다크 유지 */
+    .modal-overlay { background: rgba(0,0,0,0.6); }
+    .modal { background: #1A1A1A; color: var(--paper); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="oz-homepage.html" class="nav-logo">OZ <span>Class</span></a>
+    <a href="oz-homepage.html" class="nav-back">홈으로</a>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-label">Schedule</div>
+    <h1 class="page-header-title">수업 일정</h1>
+    <p class="page-header-sub">
+      매주 <em>수요일 · 일요일</em> 오프라인 강좌가 진행됩니다.
+    </p>
+  </header>
+
+  <!-- CALENDAR -->
+  <main class="calendar-wrap">
+
+    <div class="month-nav">
+      <button class="month-nav-btn" onclick="changeMonth(-1)" aria-label="이전 달">&#8592;</button>
+      <div class="month-label" id="month-label"></div>
+      <button class="month-nav-btn" onclick="changeMonth(1)" aria-label="다음 달">&#8594;</button>
+    </div>
+
+    <div class="dow-row">
+      <div class="dow-cell sun">일</div>
+      <div class="dow-cell">월</div>
+      <div class="dow-cell">화</div>
+      <div class="dow-cell class-day">수</div>
+      <div class="dow-cell">목</div>
+      <div class="dow-cell">금</div>
+      <div class="dow-cell">토</div>
+    </div>
+
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot class"></div> 수업일 (수·일요일)</div>
+      <div class="legend-item"><div class="legend-dot today"></div> 오늘</div>
+    </div>
+    <p class="notice">수업 일정은 추후 확정 예정입니다. 변동 사항은 사전에 안내드립니다.</p>
+
+    <!-- CLASS INFO -->
+    <div class="class-strip">
+      <div>
+        <div class="strip-item-label">수업 요일</div>
+        <div class="strip-item-value">매주 수요일 · 일요일<br><span style="font-size:13px;color:var(--gray-mid);">시간은 추후 안내</span></div>
+      </div>
+      <div>
+        <div class="strip-item-label">장소</div>
+        <div class="strip-item-value">경기도 과천시 별양상가2로 14<br>제일쇼핑 348호 오즈클래스</div>
+      </div>
+      <div>
+        <div class="strip-item-label">수강료</div>
+        <div class="strip-item-value">추후 공지<br><span style="font-size:13px;color:var(--gray-mid);">문의 시 안내</span></div>
+      </div>
+      <div>
+        <div class="strip-item-label">정원</div>
+        <div class="strip-item-value">소수 정예<br><span style="font-size:13px;color:var(--gray-mid);">선착순 모집</span></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-area">
+      <a href="oz-homepage.html#contact" class="btn-primary">수강 문의하기 →</a>
+      <a href="tel:010-3404-1638" class="btn-secondary">☎ 010-3404-1638</a>
+    </div>
+
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()" aria-label="닫기">&#215;</button>
+      <div class="modal-label">수강 신청</div>
+      <div class="modal-date" id="modal-date-display"></div>
+      <form id="enroll-form" onsubmit="submitForm(event)">
+        <input type="hidden" id="field-date" name="date">
+        <div class="form-group">
+          <label class="form-label" for="field-name">이름 *</label>
+          <input class="form-input" type="text" id="field-name" name="name" placeholder="홍길동" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="field-phone">연락처 *</label>
+          <input class="form-input" type="tel" id="field-phone" name="phone" placeholder="010-0000-0000" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="field-email">이메일</label>
+          <input class="form-input" type="email" id="field-email" name="email" placeholder="선택 사항">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="field-course">관심 과목 *</label>
+          <select class="form-input form-select" id="field-course" name="course" required>
+            <option value="">선택해 주세요</option>
+            <option value="명리학 기초·심화">명리학 기초·심화</option>
+            <option value="자본시장 실전 투자">자본시장 실전 투자</option>
+            <option value="1:1 맞춤 컨설팅">1:1 맞춤 컨설팅</option>
+            <option value="미정 (상담 후 결정)">미정 (상담 후 결정)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="field-msg">문의 사항</label>
+          <textarea class="form-input form-textarea" id="field-msg" name="message" placeholder="궁금한 점이나 남기실 말씀을 적어주세요."></textarea>
+        </div>
+        <button type="submit" class="modal-submit" id="submit-btn">신청서 보내기</button>
+        <div class="modal-msg" id="modal-msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-logo">OZ <span>Class</span></div>
+    <div class="footer-copy">© 2025 OZ Class. 사업자등록번호 707-02-03792</div>
+  </footer>
+
+  <script>
+    const MONTHS_KO = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    const DAYS_KO   = ['일','월','화','수','목','금','토'];
+    const GAS_URL   = 'https://script.google.com/macros/s/AKfycbzFqfpnanYzgVFqua62seiXJ-HWnXmEwUD4Vkg1GYRrzWPBgitDdygM_HGYe21ToN8I/exec';
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    let viewYear  = today.getFullYear();
+    let viewMonth = today.getMonth();
+
+    function isClassDay(date) {
+      const d = date.getDay();
+      return d === 0 || d === 3; // 일=0, 수=3
+    }
+
+    function renderCalendar() {
+      const label = document.getElementById('month-label');
+      label.innerHTML = `${MONTHS_KO[viewMonth]} <span>${viewYear}</span>`;
+
+      const grid = document.getElementById('cal-grid');
+      grid.innerHTML = '';
+
+      const firstDay    = new Date(viewYear, viewMonth, 1).getDay();
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-cell empty';
+        grid.appendChild(empty);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date    = new Date(viewYear, viewMonth, d);
+        const isToday = date.getTime() === today.getTime();
+        const isPast  = date < today && !isToday;
+        const isClass = isClassDay(date);
+
+        const cell = document.createElement('div');
+        let cls = 'cal-cell';
+        if (isClass)  cls += ' class-day';
+        else          cls += ' regular';
+        if (isToday)  cls += ' today';
+        if (isPast)   cls += ' past';
+        cell.className = cls;
+
+        const num = document.createElement('div');
+        num.className = 'cal-day-num';
+        num.textContent = d;
+        cell.appendChild(num);
+
+        if (isClass) {
+          const tag = document.createElement('div');
+          tag.className = 'cal-day-tag';
+          tag.textContent = '수업';
+          cell.appendChild(tag);
+
+          // 미래 수업일만 클릭 가능
+          if (!isPast) {
+            cell.style.cursor = 'pointer';
+            cell.setAttribute('title', '클릭하여 수강 신청');
+            cell.addEventListener('click', () => openModal(date));
+          }
+        }
+
+        grid.appendChild(cell);
+      }
+    }
+
+    function changeMonth(dir) {
+      viewMonth += dir;
+      if (viewMonth < 0)  { viewMonth = 11; viewYear--; }
+      if (viewMonth > 11) { viewMonth = 0;  viewYear++; }
+      renderCalendar();
+    }
+
+    // ── MODAL ──
+    function openModal(date) {
+      const y  = date.getFullYear();
+      const m  = date.getMonth() + 1;
+      const d  = date.getDate();
+      const dw = DAYS_KO[date.getDay()];
+      const dateStr = `${y}년 ${m}월 ${d}일 (${dw})`;
+
+      document.getElementById('modal-date-display').textContent = dateStr;
+      document.getElementById('field-date').value = dateStr;
+      document.getElementById('enroll-form').reset();
+      document.getElementById('field-date').value = dateStr; // reset 후 재설정
+      document.getElementById('modal-msg').textContent = '';
+      document.getElementById('modal-msg').className = 'modal-msg';
+      document.getElementById('submit-btn').disabled = false;
+      document.getElementById('submit-btn').textContent = '신청서 보내기';
+
+      document.getElementById('modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('modal-overlay')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ── FORM SUBMIT ──
+    function submitForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const msg = document.getElementById('modal-msg');
+      const form = document.getElementById('enroll-form');
+
+      btn.disabled = true;
+      btn.textContent = '전송 중…';
+      msg.textContent = '';
+      msg.className = 'modal-msg';
+
+      // 백엔드 필드명을 홈페이지와 동일하게 맞춤 (name / phone / track / message)
+      const selectedDate = document.getElementById('field-date').value;
+      const payload = {
+        name:    form.elements['name'].value,
+        phone:   form.elements['phone'].value,
+        track:   form.elements['course'].value,
+        message: `[수강신청 희망일: ${selectedDate}]${form.elements['message'].value ? '\n' + form.elements['message'].value : ''}`,
+      };
+
+      // no-cors: Apps Script CORS 우회 — 응답 확인 불가이므로 resolve 시 성공으로 간주
+      fetch(GAS_URL, {
+        method: 'POST',
+        body:   JSON.stringify(payload),
+        mode:   'no-cors',
+      })
+      .then(() => {
+        msg.textContent = '신청서가 접수되었습니다. 곧 연락드리겠습니다.';
+        msg.className   = 'modal-msg success';
+        btn.textContent = '✓ 접수 완료';
+      })
+      .catch(() => {
+        msg.textContent = '전송에 실패했습니다. 전화나 이메일로 문의해 주세요.';
+        msg.className   = 'modal-msg error';
+        btn.disabled    = false;
+        btn.textContent = '다시 시도';
+      });
+    }
+
+    renderCalendar();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OZ 클래스 — Brand Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f3ec;
+    --emerald: #00735e;
+    --brick: #f0b90b;
+    --stone: #5a5a5a;
+    --whisper: #c9c5b8;
+  }
+  html, body { background: var(--paper); }
+  body {
+    font-family: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1180px; margin: 0 auto; padding: 96px 56px; }
+
+  /* Header */
+  header.cover {
+    padding-bottom: 64px;
+    margin-bottom: 96px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 56px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .meta .right { text-align: right; }
+  .display {
+    font-family: 'DM Serif Display', 'Pretendard', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .display .ko { display: block; font-family: 'Pretendard', sans-serif; font-size: 0.55em; letter-spacing: -0.01em; color: var(--stone); margin-top: 16px; font-weight: 400; }
+  .slogan {
+    font-size: 22px;
+    color: var(--ink);
+    margin-top: 32px;
+    font-weight: 400;
+  }
+  .slogan strong { font-weight: 600; }
+
+  /* Section */
+  section { margin-bottom: 120px; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 48px;
+    letter-spacing: -0.01em;
+  }
+
+  /* Logo grid */
+  .logo-block {
+    background: white;
+    border: 1px solid var(--whisper);
+    padding: 64px 48px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    position: relative;
+  }
+  .logo-caption {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .logo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .logo-block.dark { background: var(--ink); }
+  .logo-block.emerald { background: var(--emerald); }
+  .logo-block.dark .logo-caption,
+  .logo-block.emerald .logo-caption { color: rgba(255,255,255,0.6); }
+
+  /* Color palette */
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .swatch {
+    aspect-ratio: 3/4;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid var(--whisper);
+  }
+  .swatch .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .swatch .hex { font-size: 11px; letter-spacing: 0.1em; opacity: 0.7; font-family: 'Inter', monospace; }
+  .swatch .role { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: auto; opacity: 0.5; }
+
+  /* Typography section */
+  .type-spec {
+    border-top: 1px solid var(--whisper);
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+  }
+  .type-meta { font-size: 12px; color: var(--stone); }
+  .type-meta .label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 8px; color: var(--ink); font-weight: 600; }
+  .type-display.serif { font-family: 'DM Serif Display', serif; font-size: 56px; line-height: 1.1; letter-spacing: -0.02em; }
+  .type-display.sans-en { font-family: 'Inter', sans-serif; font-size: 40px; font-weight: 600; letter-spacing: -0.01em; }
+  .type-display.sans-ko { font-family: 'Pretendard', sans-serif; font-size: 36px; font-weight: 600; letter-spacing: -0.02em; }
+  .type-display.body-ko { font-family: 'Pretendard', sans-serif; font-size: 17px; font-weight: 400; line-height: 1.7; }
+
+  /* Business card */
+  .card-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+  .card {
+    aspect-ratio: 9/5;
+    border: 1px solid var(--whisper);
+    padding: 32px 36px;
+    background: var(--paper);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .card.back { background: var(--ink); color: var(--paper); }
+  .card-mark { display: flex; align-items: center; gap: 14px; }
+  .card-name { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .card-title { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); margin-top: 4px; }
+  .card.back .card-title { color: rgba(245, 243, 236, 0.6); }
+  .card-contact { font-size: 11px; line-height: 1.8; color: var(--stone); letter-spacing: 0.02em; }
+  .card.back .card-contact { color: rgba(245, 243, 236, 0.7); }
+  .card-back-slogan {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .card-corner { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); }
+  .card.back .card-corner { color: rgba(245, 243, 236, 0.5); }
+
+  /* SNS profile */
+  .sns-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .sns-tile {
+    aspect-ratio: 1/1;
+    border: 1px solid var(--whisper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .sns-label {
+    position: absolute;
+    bottom: -28px;
+    left: 0;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .sns-tile.dark { background: var(--ink); }
+  .sns-tile.emerald { background: var(--emerald); }
+  .sns-tile.paper { background: var(--paper); }
+
+  /* Notes */
+  .notes {
+    background: white;
+    border: 1px solid var(--whisper);
+    padding: 32px 36px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--stone);
+  }
+  .notes strong { color: var(--ink); font-weight: 600; }
+  .notes ul { margin: 8px 0 0 18px; }
+
+  /* Footer */
+  footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--ink);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 720px) {
+    .container { padding: 56px 24px; }
+    .logo-row, .card-row { grid-template-columns: 1fr; }
+    .palette { grid-template-columns: repeat(2, 1fr); }
+    .sns-row { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .type-spec { grid-template-columns: 1fr; }
+    .meta { flex-direction: column; gap: 8px; }
+    .meta .right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- COVER -->
+  <header class="cover">
+    <div class="meta">
+      <div>Brand Sheet · v1.0</div>
+      <div class="right">2026</div>
+    </div>
+    <h1 class="display">
+      OZ Class
+      <span class="ko">오즈의 마법사</span>
+    </h1>
+    <p class="slogan"><strong>"마법이 아니라, 통찰입니다."</strong></p>
+  </header>
+
+  <!-- 01 LOGO -->
+  <section>
+    <div class="section-label">01 / Logo System</div>
+    <h2 class="section-title">로고 시스템</h2>
+
+    <!-- Primary horizontal -->
+    <div class="logo-block">
+      <div class="logo-caption">Primary · Horizontal</div>
+      <svg viewBox="0 0 800 240" width="640" xmlns="http://www.w3.org/2000/svg">
+        <!-- O -->
+        <circle cx="105" cy="120" r="62" fill="none" stroke="#1a1a1a" stroke-width="9"/>
+        <!-- Z top -->
+        <line x1="200" y1="62" x2="312" y2="62" stroke="#1a1a1a" stroke-width="9" stroke-linecap="square"/>
+        <!-- Z diagonal (yellow brick) -->
+        <line x1="312" y1="62" x2="200" y2="178" stroke="#f0b90b" stroke-width="14" stroke-linecap="square"/>
+        <!-- Z bottom -->
+        <line x1="200" y1="178" x2="312" y2="178" stroke="#1a1a1a" stroke-width="9" stroke-linecap="square"/>
+        <!-- divider -->
+        <line x1="358" y1="58" x2="358" y2="182" stroke="#1a1a1a" stroke-width="1"/>
+        <!-- Wordmark -->
+        <text x="380" y="112" font-family="Inter, sans-serif" font-size="34" font-weight="600" fill="#1a1a1a" letter-spacing="2.5">OZ CLASS</text>
+        <text x="380" y="155" font-family="Pretendard, sans-serif" font-size="17" font-weight="400" fill="#5a5a5a" letter-spacing="2.5">오즈의 마법사</text>
+      </svg>
+    </div>
+
+    <div class="logo-row">
+      <!-- Stacked -->
+      <div class="logo-block">
+        <div class="logo-caption">Stacked · Centered</div>
+        <svg viewBox="0 0 360 360" width="240" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="120" cy="130" r="55" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+          <line x1="200" y1="78" x2="295" y2="78" stroke="#1a1a1a" stroke-width="8"/>
+          <line x1="295" y1="78" x2="200" y2="182" stroke="#f0b90b" stroke-width="13"/>
+          <line x1="200" y1="182" x2="295" y2="182" stroke="#1a1a1a" stroke-width="8"/>
+          <line x1="80" y1="230" x2="280" y2="230" stroke="#1a1a1a" stroke-width="1"/>
+          <text x="180" y="265" font-family="Inter, sans-serif" font-size="22" font-weight="600" fill="#1a1a1a" letter-spacing="2" text-anchor="middle">OZ CLASS</text>
+          <text x="180" y="295" font-family="Pretendard, sans-serif" font-size="13" font-weight="400" fill="#5a5a5a" letter-spacing="3" text-anchor="middle">오즈의 마법사</text>
+        </svg>
+      </div>
+
+      <!-- Monogram -->
+      <div class="logo-block">
+        <div class="logo-caption">Monogram · Icon</div>
+        <svg viewBox="0 0 240 240" width="200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="220" height="220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+          <circle cx="80" cy="120" r="42" fill="none" stroke="#1a1a1a" stroke-width="7"/>
+          <line x1="135" y1="84" x2="200" y2="84" stroke="#1a1a1a" stroke-width="7"/>
+          <line x1="200" y1="84" x2="135" y2="156" stroke="#f0b90b" stroke-width="11"/>
+          <line x1="135" y1="156" x2="200" y2="156" stroke="#1a1a1a" stroke-width="7"/>
+        </svg>
+      </div>
+
+      <!-- Reverse on dark -->
+      <div class="logo-block dark">
+        <div class="logo-caption">Reverse · On Dark</div>
+        <svg viewBox="0 0 360 240" width="280" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="120" r="58" fill="none" stroke="#f5f3ec" stroke-width="8"/>
+          <line x1="190" y1="68" x2="295" y2="68" stroke="#f5f3ec" stroke-width="8"/>
+          <line x1="295" y1="68" x2="190" y2="172" stroke="#f0b90b" stroke-width="13"/>
+          <line x1="190" y1="172" x2="295" y2="172" stroke="#f5f3ec" stroke-width="8"/>
+        </svg>
+      </div>
+
+      <!-- Emerald background variant -->
+      <div class="logo-block emerald">
+        <div class="logo-caption">Accent · On Emerald</div>
+        <svg viewBox="0 0 360 240" width="280" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="120" r="58" fill="none" stroke="#f5f3ec" stroke-width="8"/>
+          <line x1="190" y1="68" x2="295" y2="68" stroke="#f5f3ec" stroke-width="8"/>
+          <line x1="295" y1="68" x2="190" y2="172" stroke="#f0b90b" stroke-width="13"/>
+          <line x1="190" y1="172" x2="295" y2="172" stroke="#f5f3ec" stroke-width="8"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="notes" style="margin-top:24px;">
+      <strong>로고 컨셉</strong>
+      <ul>
+        <li><strong>O</strong> — 완전한 원. 명리(60갑자·12지의 순환), 시장의 사이클, 통찰의 렌즈, 커튼이 열리기 전의 무대를 모두 함의합니다.</li>
+        <li><strong>Z</strong> — 세 개의 획. 위·아래는 차콜(이성·구조), 사선은 옐로우브릭 옐로우(여정·실행). 도로시가 걸은 그 길입니다.</li>
+        <li><strong>여백</strong> — 로고 주변에는 'O'의 반지름 이상의 여백을 권장합니다. 모노그램은 정사각 프레임을 깨지 마세요.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 02 COLOR -->
+  <section>
+    <div class="section-label">02 / Color</div>
+    <h2 class="section-title">컬러 팔레트</h2>
+    <div class="palette">
+      <div class="swatch" style="background:#1a1a1a; color:#f5f3ec;">
+        <div class="role">Primary</div>
+        <div class="name">Ink</div>
+        <div class="hex">#1A1A1A</div>
+      </div>
+      <div class="swatch" style="background:#f5f3ec; color:#1a1a1a;">
+        <div class="role">Surface</div>
+        <div class="name">Paper</div>
+        <div class="hex">#F5F3EC</div>
+      </div>
+      <div class="swatch" style="background:#00735e; color:#f5f3ec;">
+        <div class="role">Secondary</div>
+        <div class="name">Emerald</div>
+        <div class="hex">#00735E</div>
+      </div>
+      <div class="swatch" style="background:#f0b90b; color:#1a1a1a;">
+        <div class="role">Accent</div>
+        <div class="name">Brick</div>
+        <div class="hex">#F0B90B</div>
+      </div>
+      <div class="swatch" style="background:#5a5a5a; color:#f5f3ec;">
+        <div class="role">Tertiary</div>
+        <div class="name">Stone</div>
+        <div class="hex">#5A5A5A</div>
+      </div>
+    </div>
+    <div class="notes" style="margin-top:24px;">
+      <strong>사용 비율</strong> — Ink 60%, Paper 30%, Emerald 7%, Brick 2%, Stone 1%. Brick은 강조점(로고 사선, 서브 헤드라인 언더라인)에만 점적으로 사용하세요. 절대 면 색으로 깔지 않습니다. Emerald는 CTA 버튼·중요 강조에만.
+    </div>
+  </section>
+
+  <!-- 03 TYPE -->
+  <section>
+    <div class="section-label">03 / Typography</div>
+    <h2 class="section-title">타이포그래피</h2>
+
+    <div class="type-spec">
+      <div class="type-meta">
+        <div class="label">Display · EN</div>
+        DM Serif Display<br>Regular · 56–88px<br>Letter-spacing -0.02em
+      </div>
+      <div class="type-display serif">Insight, not magic.</div>
+    </div>
+
+    <div class="type-spec">
+      <div class="type-meta">
+        <div class="label">Display · KO</div>
+        Pretendard SemiBold<br>36–72px<br>Letter-spacing -0.02em
+      </div>
+      <div class="type-display sans-ko">마법이 아니라, 통찰입니다.</div>
+    </div>
+
+    <div class="type-spec">
+      <div class="type-meta">
+        <div class="label">Heading · EN</div>
+        Inter SemiBold<br>20–40px<br>Letter-spacing -0.01em
+      </div>
+      <div class="type-display sans-en">OZ CLASS</div>
+    </div>
+
+    <div class="type-spec">
+      <div class="type-meta">
+        <div class="label">Body · KO/EN</div>
+        Pretendard Regular · 16–18px<br>Line-height 1.7<br>Letter-spacing -0.005em
+      </div>
+      <div class="type-display body-ko">
+        커튼 뒤의 마법사가 도로시 일행에게 준 것은 새로운 능력이 아니었습니다. 이미 그들 안에 있던 지혜·용기·마음을 볼 수 있게 해준 작은 증표였을 뿐입니다. OZ 클래스가 하는 일도 같습니다. 명리와 시장이라는 두 개의 거대한 흐름을 읽는 눈은, 사실 누구에게나 잠재해 있습니다.
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 BUSINESS CARD -->
+  <section>
+    <div class="section-label">04 / Stationery</div>
+    <h2 class="section-title">명함 시안</h2>
+    <div class="card-row">
+      <div class="card">
+        <div class="card-corner">FRONT · 90×50mm</div>
+        <div class="card-mark">
+          <svg viewBox="0 0 240 120" width="160" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="60" r="28" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+            <line x1="80" y1="35" x2="125" y2="35" stroke="#1a1a1a" stroke-width="5"/>
+            <line x1="125" y1="35" x2="80" y2="85" stroke="#f0b90b" stroke-width="8"/>
+            <line x1="80" y1="85" x2="125" y2="85" stroke="#1a1a1a" stroke-width="5"/>
+            <line x1="148" y1="32" x2="148" y2="88" stroke="#1a1a1a" stroke-width="0.8"/>
+            <text x="158" y="58" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#1a1a1a" letter-spacing="1.5">OZ CLASS</text>
+            <text x="158" y="78" font-family="Pretendard, sans-serif" font-size="9" font-weight="400" fill="#5a5a5a" letter-spacing="2">오즈의 마법사</text>
+          </svg>
+        </div>
+        <div>
+          <div class="card-name">홍 길 동</div>
+          <div class="card-title">Founder · 명리 / 자본 시장 코치</div>
+        </div>
+        <div class="card-contact">
+          M. 010 0000 0000<br>
+          E. hello@ozclass.kr<br>
+          W. ozclass.kr
+        </div>
+      </div>
+
+      <div class="card back">
+        <div class="card-corner">BACK</div>
+        <div class="card-back-slogan">
+          마법이 아니라,<br>
+          <span style="color:#f0b90b;">통찰</span>입니다.
+        </div>
+        <div style="font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:rgba(245,243,236,0.5);">Insight, not magic.</div>
+      </div>
+    </div>
+    <div class="notes">
+      <strong>인쇄 스펙</strong> — 표준 한국 명함 90×50mm, 300gsm 무광 매트지 또는 코튼지 권장. 잉크블랙은 K100 + C30(리치블랙)으로 인쇄. 옐로우 사선은 별색(Pantone 7549 C) 또는 4도 인쇄 모두 가능. 모서리 둥글림 없음(샤프 컷).
+    </div>
+  </section>
+
+  <!-- 05 SNS -->
+  <section>
+    <div class="section-label">05 / Social</div>
+    <h2 class="section-title">SNS 프로필</h2>
+    <div class="sns-row">
+      <div class="sns-tile dark">
+        <svg viewBox="0 0 200 200" width="160" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="65" cy="100" r="34" fill="none" stroke="#f5f3ec" stroke-width="6"/>
+          <line x1="110" y1="68" x2="160" y2="68" stroke="#f5f3ec" stroke-width="6"/>
+          <line x1="160" y1="68" x2="110" y2="132" stroke="#f0b90b" stroke-width="10"/>
+          <line x1="110" y1="132" x2="160" y2="132" stroke="#f5f3ec" stroke-width="6"/>
+        </svg>
+        <div class="sns-label">A · 차콜 베이스 (메인)</div>
+      </div>
+      <div class="sns-tile emerald">
+        <svg viewBox="0 0 200 200" width="160" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="65" cy="100" r="34" fill="none" stroke="#f5f3ec" stroke-width="6"/>
+          <line x1="110" y1="68" x2="160" y2="68" stroke="#f5f3ec" stroke-width="6"/>
+          <line x1="160" y1="68" x2="110" y2="132" stroke="#f0b90b" stroke-width="10"/>
+          <line x1="110" y1="132" x2="160" y2="132" stroke="#f5f3ec" stroke-width="6"/>
+        </svg>
+        <div class="sns-label">B · 에메랄드 (서브)</div>
+      </div>
+      <div class="sns-tile paper">
+        <svg viewBox="0 0 200 200" width="160" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="65" cy="100" r="34" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+          <line x1="110" y1="68" x2="160" y2="68" stroke="#1a1a1a" stroke-width="6"/>
+          <line x1="160" y1="68" x2="110" y2="132" stroke="#f0b90b" stroke-width="10"/>
+          <line x1="110" y1="132" x2="160" y2="132" stroke="#1a1a1a" stroke-width="6"/>
+        </svg>
+        <div class="sns-label">C · 페이퍼 라이트</div>
+      </div>
+    </div>
+
+    <div class="notes" style="margin-top:48px;">
+      <strong>플랫폼별 가이드</strong>
+      <ul>
+        <li><strong>인스타그램</strong> — 옵션 A(차콜) 권장. 피드 첫인상에서 가장 식별력이 높습니다.</li>
+        <li><strong>유튜브</strong> — 옵션 A 또는 B. 채널 아트는 차콜 풀배경에 가로형 로고를 우측 상단에.</li>
+        <li><strong>네이버 블로그·브런치</strong> — 옵션 C(페이퍼). 흰 인터페이스에서 묻히지 않게 테두리 1px 추가.</li>
+        <li><strong>카카오톡 채널·오픈채팅</strong> — 옵션 A. 작은 사이즈에서 옐로우 사선이 선명하게 보입니다.</li>
+        <li><strong>최소 사용 크기</strong> — 36×36px (파비콘). 그 이하에서는 'O' 원만 단독 사용 권장.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 06 DON'T -->
+  <section>
+    <div class="section-label">06 / Brand Hygiene</div>
+    <h2 class="section-title">하지 말아야 할 것</h2>
+    <div class="notes">
+      <ul>
+        <li>1939년 MGM 영화의 시각 요소(루비 슬리퍼의 빨간색, 토네이도, 양철나무꾼·사자·허수아비 캐릭터 일러스트)는 사용 금지 — 워너브라더스 IP입니다.</li>
+        <li>로고에 그라디언트, 그림자, 외곽선 추가 금지.</li>
+        <li>옐로우 사선의 색상 변경 금지(브랜드 식별의 핵심).</li>
+        <li>한국 전통 점집 모티브(태극 풀세트, 부적 무늬, 붓글씨 손글씨체) 금지 — 모던 톤과 충돌.</li>
+        <li>'마법' '점' '예언' 같은 단어를 카피에서 단독 사용 금지. 항상 '통찰' '판단' '흐름'으로 치환.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div>OZ Class · Brand Sheet v1.0</div>
+    <div>Insight, not magic.</div>
+  </footer>
+
+</div>
+</body>
+</html>
